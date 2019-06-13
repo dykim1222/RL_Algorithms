@@ -1,7 +1,8 @@
 # Folders
 reinforce_runs/
-
+actor_critic_runs/
 # Files
 
 # Packages
 .DS_Store
+.gitignore

@@ -22,10 +22,12 @@ class Policy(nn.Module):
         super(Policy, self).__init__()
         self.fc1 = nn.Linear(num_input, num_hidden)
         self.fc2 = nn.Linear(num_hidden, num_output)
-    def forward(self, x):
+        self.m = None
+    def get_action(self, x):
         x = torch.Tensor(x).to(device)
         x = self.fc2(F.relu(self.fc1(x)))
-        return x # note: without softmax
+        self.m = Categorical(logits=x)
+        return self.m.sample()
 
 def train():
     env = gym.make(env_name)
@@ -39,11 +41,9 @@ def train():
         obs = env.reset()
         while True:
             if render: env.render()
-            logits = policy(obs)
-            m = Categorical(logits=logits)
-            action = m.sample()
+            action = policy.get_action(obs)
             obs, rew, done, _ = env.step(action.item())
-            log_probs.append(m.log_prob(action))
+            log_probs.append(policy.m.log_prob(action))
             rewards.append(rew)
             if done:
                 writer.add_scalar('Return', np.sum(rewards), episode)
