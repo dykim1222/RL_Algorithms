@@ -8,7 +8,7 @@ def value_iteration():
     # input: S, A, P, R, gamma
     env = gym.make("FrozenLake-v0")
     S, A = env.observation_space.n, env.action_space.n
-    gamma = 0.99
+    gamma = 1
     V = np.zeros(S)
     eps = 1e-8
     iter_num = 0
@@ -40,13 +40,13 @@ def value_iteration():
         pi[s] = Q.argmax()
 
     # plotting
-    vv = np.array([[0.54, 0.50, 0.47, 0.46],[0.56, 0, 0.36, 0],[0.59, 0.64, 0.62, 0],[0, 0.74, 0.86, 0]])
+    vv = V.reshape(4,4)
     state = [['S','F','F','F'],['F','H','F','H'],['F','F','F','H'],['H','F','F','G']]
     plt.imshow(vv)
     plt.colorbar()
     for i in range(4):
         for j in range(4):
-            plt.text(j, i, str(vv[i][j])+'/'+state[i][j], ha="center", va="center", color="brown")
+            plt.text(j, i, str(vv[i][j])[:5]+'/'+state[i][j], ha="center", va="center", color="brown")
     plt.title("Value Iteration for FrozenLake-v0 after {} Iterations".format(iter_num))
     plt.savefig('value_iteration.png')
 
