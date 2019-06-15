@@ -60,7 +60,7 @@ def monte_carlo_policy_iteration():
     for i in range(4):
         for j in range(4):
             plt.text(j, i, str(vv[i][j])[:5]+'/'+state[i][j], ha="center", va="center", color="brown")
-    plt.title("Monte Carlo Control for FrozenLake-v0 after {} Iterations".format(num_episode))
+    plt.title("Monte Carlo Control for FrozenLake-v0 after {} Episodes".format(num_episode))
     plt.savefig('monte_carlo_policy_iteration.png')
     return Q, pi
 
