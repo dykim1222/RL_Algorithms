@@ -15,23 +15,22 @@ def policy_iteration():
     V = np.zeros(S)
     pi = npr.randint(A, size=S)
     policy_unstable = True
-    eps = 1e-6
+    eps = 1e-8
     iter_num = 0
 
     while policy_unstable:
 
         # policy evaluation
-        delta = 1
-        while delta > eps:
+        while True:
             delta = 0
             for s in range(len(V)):
                 V_old = V[s]
-                trans = env.P[s][pi[s]]
                 value = 0
-                for (prob, s_prime, rew, done) in trans:
+                for (prob, s_prime, rew, done) in env.P[s][pi[s]]:
                     value += prob*(rew + gamma*V[s_prime])
                 V[s] = value
                 delta = max(delta, abs(V_old-V[s]))
+            if delta<eps: break
 
         # policy improvement
         policy_unstable = False
@@ -39,8 +38,7 @@ def policy_iteration():
             pi_old = pi[s]
             Q = np.zeros(A)
             for a in range(A):
-                trans = env.P[s][a]
-                for (prob, s_prime, rew, done) in trans:
+                for (prob, s_prime, rew, done) in env.P[s][a]:
                     Q[a] += prob*(rew + gamma*V[s_prime])
             pi[s] = Q.argmax()
             if pi_old != pi[s]: policy_unstable=True
@@ -59,6 +57,7 @@ def policy_iteration():
             plt.text(j, i, str(vv[i][j])[:5]+'/'+state[i][j], ha="center", va="center", color="brown")
     plt.title("Policy Iteration for FrozenLake-v0 after {} Iterations".format(iter_num))
     plt.savefig('policy_iteration.png')
+    print(pi)
     return V, pi
 
 if __name__ == "__main__":

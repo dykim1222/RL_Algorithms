@@ -14,28 +14,26 @@ def value_iteration():
     iter_num = 0
 
     # Value Iteration
-    delta = 1
-    while delta > eps:
+    while True:
         delta = 0
         for s in range(S):
             V_old = V[s]
             Q = np.zeros(A)
             for a in range(A):
-                trans = env.P[s][a]
-                for (prob, s_prime, rew, done) in trans:
+                for (prob, s_prime, rew, done) in env.P[s][a]:
                     Q[a] += prob*(rew + gamma*V[s_prime])
             V[s] = max(Q)
             delta = max(delta, abs(V[s]-V_old))
         iter_num += 1
         print("Iteration: {}\nValue: {}".format(iter_num, V))
+        if delta<eps: break
 
-    # Deterministic Policy from Optimal Value Function
+    # Deterministic Policy from 'Optimal' Value Function
     pi = np.zeros(S)
     for s in range(S):
         Q = np.zeros(A)
         for a in range(A):
-            trans = env.P[s][a]
-            for (prob, s_prime, rew, done) in trans:
+            for (prob, s_prime, rew, done) in env.P[s][a]:
                 Q[a] += prob*(rew + gamma*V[s_prime])
         pi[s] = Q.argmax()
 
@@ -49,7 +47,7 @@ def value_iteration():
             plt.text(j, i, str(vv[i][j])[:5]+'/'+state[i][j], ha="center", va="center", color="brown")
     plt.title("Value Iteration for FrozenLake-v0 after {} Iterations".format(iter_num))
     plt.savefig('value_iteration.png')
-
+    print(pi)
     return V, pi
 
 if __name__ == "__main__":
