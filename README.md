@@ -11,7 +11,7 @@ gym, torch
 ## Algorithms
 0. [Dynamic Programming](https://github.com/dykim1222/RL_Algorithms/tree/master/dynamic_programming) (Policy Iteration and Value Iteration)
 1. [Monte Carlo Policy Iteration](https://github.com/dykim1222/RL_Algorithms/tree/master/monte_carlo_policy_iteration)
-2. [TD Control]
+2. [On-Policy Control with SARSA](https://github.com/dykim1222/RL_Algorithms/tree/master/sarsa)
 3. [Q Learning]
 4. [REINFORCE](https://github.com/dykim1222/RL_Algorithms/tree/master/reinforce)
 5. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
