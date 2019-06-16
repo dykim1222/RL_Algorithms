@@ -3,6 +3,12 @@
 
 Implementing RL algorithms in PyTorch. Everything is included in one file.
 
+## Requirements
+```
+gym, pytorch
+```
+
+## Algorithms
 0. [Dynamic Programming](https://github.com/dykim1222/RL_Algorithms/tree/master/dynamic_programming) (Policy Iteration and Value Iteration)
 1. [Monte Carlo Policy Iteration](https://github.com/dykim1222/RL_Algorithms/tree/master/monte_carlo_policy_iteration)
 2. [TD Control]
@@ -11,3 +17,6 @@ Implementing RL algorithms in PyTorch. Everything is included in one file.
 5. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
 6. Coming!
 
+## Resources
+* [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
+* [Sutton's Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
