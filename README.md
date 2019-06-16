@@ -5,7 +5,7 @@ Implementing RL algorithms in PyTorch. Everything is included in one file.
 
 ## Requirements
 ```
-gym, pytorch
+gym, torch
 ```
 
 ## Algorithms
