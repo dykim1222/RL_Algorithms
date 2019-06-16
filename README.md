@@ -10,3 +10,7 @@ Implementing RL algorithms in PyTorch. Everything is included in one file.
 4. REINFORCE `reinforce/reinforce.py`
 5. Actor Critic `actor_critic/actor_critic.py`
 6. Coming!
+
+
+0. [Dynamic Programming](https://github.com/dykim1222/RL_Algorithms/tree/master/dynamic_programming) (Policy Iteration and Value Iteration)
+
