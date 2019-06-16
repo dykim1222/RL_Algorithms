@@ -19,4 +19,4 @@ gym, pytorch
 
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
-* [Sutton's Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
+* [Sutton and Barto's Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
