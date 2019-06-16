@@ -18,7 +18,7 @@ def e_greedy(policy, e=eps):
     else:
         return policy
 
-def monte_carlo_policy_iteration():
+def monte_carlo_control():
     Q = np.zeros((S,A))
     N = np.zeros((S,A))
     pi = npr.randint(A, size=S)
@@ -61,8 +61,8 @@ def monte_carlo_policy_iteration():
         for j in range(4):
             plt.text(j, i, str(vv[i][j])[:5]+'/'+state[i][j], ha="center", va="center", color="brown")
     plt.title("Monte Carlo Control for FrozenLake-v0 after {} Episodes".format(num_episode))
-    plt.savefig('monte_carlo_policy_iteration.png')
+    plt.savefig('monte_carlo_control.png')
     return Q, pi
 
 if __name__ == "__main__":
-    monte_carlo_policy_iteration()
+    monte_carlo_control()
