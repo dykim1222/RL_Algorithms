@@ -6,3 +6,4 @@ actor_critic_runs/
 # Packages
 .DS_Store
 .gitignore
+.pdb
