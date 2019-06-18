@@ -3,7 +3,7 @@ import random
 import numpy as np
 import numpy.random as npr
 import matplotlib.pyplot as plt
-!pip install tensorboardX
+# !pip install tensorboardX
 from tensorboardX import SummaryWriter
 import torch
 import torch.nn as nn
@@ -16,7 +16,7 @@ import pdb
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 k = 4
 N = 300000  # 100gb
-lr = 0.003
+lr = 0.0005
 bs = 32
 num_episodes = 1000000
 render = False
@@ -92,6 +92,9 @@ class DQN(nn.Module):
     def update(self, buffer, targetQ):
         for _ in range(num_epoch):
             x_batch, y_batch, a_batch = buffer.sample(targetQ)
+
+            pdb.set_trace()
+
             out = self.forward(x_batch).gather(1, a_batch)
             loss = F.smooth_l1_loss(out, y_batch)
             self.optimizer.zero_grad()
@@ -158,7 +161,7 @@ if __name__ == "__main__":
 
         if (epi+1)%print_freq==0:
             print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/print_freq))
-            print('Length of Buffer: {}'.format(len(buffer.memory)))
+            # print('Length of Buffer: {}'.format(len(buffer.memory)))
             avg_total_reward = 0.0
         if (epi+1)%target_update==0:
             targetQ.load_state_dict(model.state_dict())
