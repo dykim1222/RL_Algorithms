@@ -15,7 +15,8 @@ gym, torch
 3. [Q Learning](https://github.com/dykim1222/RL_Algorithms/tree/master/q_learning)
 4. [REINFORCE](https://github.com/dykim1222/RL_Algorithms/tree/master/reinforce)
 5. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
-6. Coming!
+6. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
+7. Coming!
 
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
