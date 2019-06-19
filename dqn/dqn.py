@@ -12,6 +12,7 @@ from collections import deque
 !pip install tensorboardX
 from tensorboardX import SummaryWriter
 
+
 env_name = "CartPole-v1"
 N = 100000
 num_episodes = 1000000
@@ -81,10 +82,12 @@ def main(run_num):
         targetQ.load_state_dict(model.state_dict())
         targetQ.eval()
         avg_total_reward = 0.0
+        rendering = False
         for epi in range(num_episodes):
             obs = env.reset()
             epi_total_reward = 0.0
             while True:
+                if rendering: env.render()
                 action = model.get_action(obs)
                 obs_new, rew, done, _ = env.step(action)
                 epi_total_reward += rew
@@ -104,6 +107,10 @@ def main(run_num):
             if (epi+1)%update_freq==0:
                 print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/update_freq))
                 # tb.flush_line('return')
+                if avg_total_reward/update_freq > 350:
+                    rendering = True
+                else:
+                    rendering = False
                 avg_total_reward = 0.0
                 targetQ.load_state_dict(model.state_dict())
                 targetQ.eval()
@@ -114,4 +121,3 @@ def main(run_num):
 
 if __name__ == "__main__":
     main(1)
-
