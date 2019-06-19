@@ -9,14 +9,16 @@ from collections import deque
 
 # !pip install tensorboardcolab
 # from tensorboardcolab import TensorBoardColab
+!pip install tensorboardX
+from tensorboardX import SummaryWriter
 
 env_name = "CartPole-v1"
 N = 100000
-num_episodes = 10000
+num_episodes = 1000000
 num_epoch = 20
 update_freq = 20
 bs = 128
-lr = 0.0005
+lr = 0.0001
 gamma = 0.99
 
 
@@ -68,40 +70,47 @@ class DQN(nn.Module):
             self.optimizer.step()
 
 
-def main():
+def main(run_num):
     # tb = TensorBoardColab()
+    writer = SummaryWriter()
+    for z in range(run_num):
+        env = gym.make(env_name)
+        buffer = ReplayMemory()
+        model = DQN()
+        targetQ = DQN()
+        targetQ.load_state_dict(model.state_dict())
+        targetQ.eval()
+        avg_total_reward = 0.0
+        for epi in range(num_episodes):
+            obs = env.reset()
+            epi_total_reward = 0.0
+            while True:
+                action = model.get_action(obs)
+                obs_new, rew, done, _ = env.step(action)
+                epi_total_reward += rew
+                buffer.add_memory(obs, action, rew/100.0, obs_new, float(done))
+                if done:
+                    # tb.save_value('Return', 'return', epi, epi_total_reward)
+#                     writer.add_scalar('Return'.format(z), epi_total_reward, epi)
+                    writer.add_scalars('Return', {'run_{}'.format(z): epi_total_reward}, epi)
+                    avg_total_reward += epi_total_reward
+                    model.epi_num += 1
+                    break
+                obs = np.copy(obs_new)
 
-    env = gym.make(env_name)
-    buffer = ReplayMemory()
-    model = DQN()
-    targetQ = DQN()
-    targetQ.load_state_dict(model.state_dict())
-    targetQ.eval()
-    avg_total_reward = 0.0
-    for epi in range(num_episodes):
-        obs = env.reset()
-        epi_total_reward = 0.0
-        while True:
-            action = model.get_action(obs)
-            obs_new, rew, done, _ = env.step(action)
-            epi_total_reward += rew
-            buffer.add_memory(obs, action, rew/100.0, obs_new, float(done))
-            if done:
-                # tb.save_value('Return', 'return', epi, epi_total_reward)
-                avg_total_reward += epi_total_reward
-                model.epi_num += 1
-                break
-            obs = np.copy(obs_new)
+            if len(buffer.memory) > 1000:
+                model.update(buffer, targetQ)
 
-        if len(buffer.memory) > 1000:
-            model.update(buffer, targetQ)
+            if (epi+1)%update_freq==0:
+                print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/update_freq))
+                # tb.flush_line('return')
+                avg_total_reward = 0.0
+                targetQ.load_state_dict(model.state_dict())
+                targetQ.eval()
 
-        if (epi+1)%update_freq==0:
-            print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/update_freq))
-            # tb.flush_line('return')
-            avg_total_reward = 0.0
-            targetQ.load_state_dict(model.state_dict())
-            targetQ.eval()
+        env.close()
+        # tb.close()
+    writer.close()
 
-    env.close()
-    # tb.close()
+if __name__ == "__main__":
+    main(1)
