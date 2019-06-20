@@ -21,4 +21,4 @@ gym, torch
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
 * [Sutton and Barto's Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
-* This project is inspired by [seungeunrho/minimalRL](https://github.com/seungeunrho/minimalRL)
+* This project is inspired by [seungeunrho/minimalRL](https://github.com/seungeunrho/minimalRL).
