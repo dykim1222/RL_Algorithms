@@ -2,10 +2,8 @@
 reinforce_runs/
 actor_critic_runs/
 # Files
-todo.docx
 
 # Packages
 .DS_Store
-.gitignore
-.pdb
-.docx
+*.pdf
+*.docx
