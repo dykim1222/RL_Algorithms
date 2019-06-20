@@ -45,13 +45,22 @@ class DQN(nn.Module):
     def __init__(self):
         super(DQN, self).__init__()
         self.fc1 = nn.Linear(4, 256)
+        self.bn1 = nn.BatchNorm1d(256)
+        self.bn1.eval()
         self.fc2 = nn.Linear(256, 2)
         self.epi_num = 0.0
         self.optimizer = torch.optim.Adam(self.parameters(), lr = lr)
 
     def forward(self, obs):
         obs = torch.Tensor(obs)
-        return self.fc2(F.relu(self.fc1(obs)))
+        obs = self.fc1(obs).reshape(-1,256)
+        obs = self.bn1(obs)
+        obs = F.relu(obs)
+        obs = self.fc2(obs)
+        return obs
+#         import pdb
+#         pdb.set_trace()
+#         return self.fc2(F.relu(self.bn1(self.fc1(obs).reshape(-1, 256))))
 
     def get_action(self, phi):
         Q = self.forward(phi)
@@ -71,53 +80,51 @@ class DQN(nn.Module):
             self.optimizer.step()
 
 
-def main(run_num):
+def main():
     # tb = TensorBoardColab()
     writer = SummaryWriter()
-    for z in range(run_num):
-        env = gym.make(env_name)
-        buffer = ReplayMemory()
-        model = DQN()
-        targetQ = DQN()
-        targetQ.load_state_dict(model.state_dict())
-        targetQ.eval()
-        avg_total_reward = 0.0
-        rendering = False
-        for epi in range(num_episodes):
-            obs = env.reset()
-            epi_total_reward = 0.0
-            while True:
-                if rendering: env.render()
-                action = model.get_action(obs)
-                obs_new, rew, done, _ = env.step(action)
-                epi_total_reward += rew
-                buffer.add_memory(obs, action, rew/100.0, obs_new, float(done))
-                if done:
-                    # tb.save_value('Return', 'return', epi, epi_total_reward)
-#                     writer.add_scalar('Return'.format(z), epi_total_reward, epi)
-                    writer.add_scalars('Return', {'run_{}'.format(z): epi_total_reward}, epi)
-                    avg_total_reward += epi_total_reward
-                    model.epi_num += 1
-                    break
-                obs = np.copy(obs_new)
 
-            if len(buffer.memory) > 1000:
-                model.update(buffer, targetQ)
+    env = gym.make(env_name)
+    buffer = ReplayMemory()
+    model = DQN()
+    targetQ = DQN()
+    targetQ.load_state_dict(model.state_dict())
+    targetQ.eval()
+    avg_total_reward = 0.0
+    rendering = False
+    for epi in range(num_episodes):
+        obs = env.reset()
+        epi_total_reward = 0.0
+        while True:
+#                 if rendering: env.render()
+            action = model.get_action(obs)
+            obs_new, rew, done, _ = env.step(action)
+            epi_total_reward += rew
+            buffer.add_memory(obs, action, rew/100.0, obs_new, float(done))
+            if done:
+                # tb.save_value('Return', 'return', epi, epi_total_reward)
+                writer.add_scalar('Return', epi_total_reward, epi)
+#                 writer.add_scalars('Return', {'run_{}'.format(z): epi_total_reward}, epi)
+                avg_total_reward += epi_total_reward
+                model.epi_num += 1
+                break
+            obs = np.copy(obs_new)
 
-            if (epi+1)%update_freq==0:
-                print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/update_freq))
-                # tb.flush_line('return')
-                if avg_total_reward/update_freq > 350:
-                    rendering = True
-                else:
-                    rendering = False
-                avg_total_reward = 0.0
-                targetQ.load_state_dict(model.state_dict())
-                targetQ.eval()
+        if len(buffer.memory) > 1000:
+            model.update(buffer, targetQ)
 
-        env.close()
-        # tb.close()
+        if (epi+1)%update_freq==0:
+            print('Episode: %3d \t Avg Return: %.3f'%(epi+1, avg_total_reward/update_freq))
+            # tb.flush_line('return')
+            writer.add_scalar('Avg Return over last {} episodes'.format(update_freq), avg_total_reward/update_freq, epi)
+            rendering = True if avg_total_reward/update_freq > 350 else False
+            avg_total_reward = 0.0
+            targetQ.load_state_dict(model.state_dict())
+            targetQ.eval()
+
+    env.close()
+    # tb.close()
     writer.close()
 
 if __name__ == "__main__":
-    main(1)
+    main()
