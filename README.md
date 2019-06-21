@@ -20,6 +20,10 @@ gym, torch
 
 *. Coming!
 
+
+1. haha
+1. HAHA
+
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
 * [Sutton and Barto's Reinforcement Learning: An Introduction](http://incompleteideas.net/book/the-book-2nd.html)
