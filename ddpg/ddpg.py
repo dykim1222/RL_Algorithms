@@ -35,11 +35,10 @@ def update_models(Q, mu, Q_target, mu_target, buffer):
         loss_mu.backward()
         mu.optimizer.step()
 
-    Tau = num_epoch*tau
-    for p, p_target in zip(Q.parameters(), Q_target.parameters()):
-        p_target.data.copy_(Tau*p.data+(1-Tau)*p_target.data)
-    for p, p_target in zip(mu.parameters(), mu_target.parameters()):
-        p_target.data.copy_(Tau*p.data+(1-Tau)*p_target.data)
+        for p, p_target in zip(Q.parameters(), Q_target.parameters()):
+            p_target.data.copy_(tau*p.data+(1-tau)*p_target.data)
+        for p, p_target in zip(mu.parameters(), mu_target.parameters()):
+            p_target.data.copy_(tau*p.data+(1-tau)*p_target.data)
 
 class Actor(nn.Module):
     def __init__(self, num_obs, num_actions):
