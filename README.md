@@ -9,20 +9,15 @@ gym, torch
 ```
 
 ## Algorithms
-0. [Dynamic Programming](https://github.com/dykim1222/RL_Algorithms/tree/master/dynamic_programming) (Policy Iteration and Value Iteration)
+1. [Dynamic Programming](https://github.com/dykim1222/RL_Algorithms/tree/master/dynamic_programming) (Policy Iteration and Value Iteration)
 1. [Monte Carlo Control](https://github.com/dykim1222/RL_Algorithms/tree/master/monte_carlo_policy_iteration)
-2. [On-Policy Control with SARSA](https://github.com/dykim1222/RL_Algorithms/tree/master/sarsa)
-3. [Q Learning](https://github.com/dykim1222/RL_Algorithms/tree/master/q_learning)
-4. [REINFORCE](https://github.com/dykim1222/RL_Algorithms/tree/master/reinforce)
-5. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
-6. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
-7. [DDPG](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
-
-*. Coming!
-
-
-1. haha
-1. HAHA
+1. [On-Policy Control with SARSA](https://github.com/dykim1222/RL_Algorithms/tree/master/sarsa)
+1. [Q Learning](https://github.com/dykim1222/RL_Algorithms/tree/master/q_learning)
+1. [REINFORCE](https://github.com/dykim1222/RL_Algorithms/tree/master/reinforce)
+1. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
+1. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
+1. [DDPG](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
+1. Coming!
 
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
