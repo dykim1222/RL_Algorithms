@@ -19,7 +19,7 @@ torch.set_default_tensor_type('torch.DoubleTensor')
 
 
 buffer_size = 100000
-num_episodes = 1000
+num_episodes = 100
 env_name = "MountainCarContinuous-v0"
 render = False
 
@@ -252,22 +252,6 @@ def update_params(pnet, vnet, memory):
     with torch.no_grad(): values = vnet(obss)
     rets, advs = estimate_advantage(values, rews, mask)
 
-    # optimize critic
-    def get_value_loss(flat_params):
-        vnet.set_params_to(torch.Tensor(flat_params))
-        for param in vnet.parameters():
-            if param.grad is not None:
-                param.grad.data.fill_(0)
-        values_ = vnet(obss)
-        value_loss = (values_ - rets).pow(2).mean()
-        # weight decay
-        for param in vnet.parameters():
-            value_loss += param.pow(2).sum() * l2_reg
-        value_loss.backward()
-        return (value_loss.data.double().numpy(), get_flat_grad_from(vnet).data.double().numpy())
-    flat_params, _, opt_info = scipy.optimize.fmin_l_bfgs_b(get_value_loss, flatten(vnet.parameters()).data.double().numpy(), maxiter=25)
-    vnet.set_params_to(torch.Tensor(flat_params))
-
     def hess_vec(v):
         kl = pnet.get_kl(obss).mean()
         g = flatten(torch.autograd.grad(kl, pnet.parameters(), create_graph=True))
@@ -295,10 +279,23 @@ def update_params(pnet, vnet, memory):
     theta = linesearch(pnet, surr_loss, fullstep, first_order_approx)
     pnet.set_params_to(theta)
 
+    # optimize critic
+    def get_value_loss(flat_params):
+        vnet.set_params_to(torch.Tensor(flat_params))
+        for param in vnet.parameters():
+            if param.grad is not None:
+                param.grad.data.fill_(0)
+        values_ = vnet(obss)
+        value_loss = (values_ - rets).pow(2).mean()
+        # weight decay
+        for param in vnet.parameters():
+            value_loss += param.pow(2).sum() * l2_reg
+        value_loss.backward()
+        return (value_loss.data.double().numpy(), get_flat_grad_from(vnet).data.double().numpy())
+    flat_params, _, opt_info = scipy.optimize.fmin_l_bfgs_b(get_value_loss, flatten(vnet.parameters()).data.double().numpy(), maxiter=25)
+    vnet.set_params_to(torch.Tensor(flat_params))
+
     return loss_grad.norm()
-
-
-
 
 def main():
     env = gym.make(env_name)
