@@ -17,6 +17,7 @@ gym, torch
 1. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
 1. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
 1. [DDPG](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
+1. [TRPO](https://github.com/dykim1222/RL_Algorithms/tree/master/trpo) ([ref](https://github.com/ikostrikov/pytorch-trpo))
 1. Coming!
 
 ## Resources
