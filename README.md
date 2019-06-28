@@ -18,6 +18,7 @@ gym, torch
 1. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
 1. [DDPG](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
 1. [TRPO/GAE](https://github.com/dykim1222/RL_Algorithms/tree/master/trpo) ([ref](https://github.com/ikostrikov/pytorch-trpo))
+1. [A3C](https://github.com/dykim1222/RL_Algorithms/tree/master/a3c)
 1. Coming!
 
 ## Resources
