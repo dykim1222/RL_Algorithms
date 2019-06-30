@@ -15,10 +15,10 @@ gym, torch
 1. [Q Learning](https://github.com/dykim1222/RL_Algorithms/tree/master/q_learning)
 1. [REINFORCE](https://github.com/dykim1222/RL_Algorithms/tree/master/reinforce)
 1. [Actor Critic](https://github.com/dykim1222/RL_Algorithms/tree/master/actor_critic)
-1. [DQN](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
-1. [DDPG](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
-1. [TRPO/GAE](https://github.com/dykim1222/RL_Algorithms/tree/master/trpo) ([ref](https://github.com/ikostrikov/pytorch-trpo))
-1. [A3C](https://github.com/dykim1222/RL_Algorithms/tree/master/a3c)
+1. [Deep Q-Network (DQN)](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
+1. [Deep Deterministic Policy Gradient(DDPG)](https://github.com/dykim1222/RL_Algorithms/tree/master/ddpg)
+1. [Trust Region Policy Optimization with Generalized Advantage Estimation (TRPO/GAE)](https://github.com/dykim1222/RL_Algorithms/tree/master/trpo) ([ref](https://github.com/ikostrikov/pytorch-trpo))
+1. [Asynchronous Advantage Actor Critic (A3C)](https://github.com/dykim1222/RL_Algorithms/tree/master/a3c)
 1. Coming!
 
 ## Resources
