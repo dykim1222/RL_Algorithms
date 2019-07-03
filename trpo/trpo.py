@@ -81,7 +81,6 @@ class Actor(nn.Module):
         log_density = -(acts - mu).pow(2) / (2 * var) - 0.5 * math.log(2 * math.pi) - log_std
         return log_density.sum(1, keepdim=True)
 
-
 class Critic(nn.Module):
     def __init__(self, num_obs):
         super(Critic, self).__init__()
