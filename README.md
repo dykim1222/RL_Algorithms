@@ -21,6 +21,7 @@ gym, torch
 1. [Trust Region Policy Optimization with Generalized Advantage Estimation (TRPO/GAE)](https://github.com/dykim1222/RL_Algorithms/tree/master/trpo) ([ref](https://github.com/ikostrikov/pytorch-trpo))
 1. [Asynchronous Advantage Actor Critic (A3C)](https://github.com/dykim1222/RL_Algorithms/tree/master/a3c)
 1. [Sample Efficient Actor-Critic with Experience Replay (ACER)](https://github.com/dykim1222/RL_Algorithms/tree/master/acer)
+1. [Proximal Policy Optimization (PPO)](https://github.com/dykim1222/RL_Algorithms/tree/master/ppo)
 1. Coming!
 
 ## Resources
