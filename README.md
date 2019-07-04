@@ -28,7 +28,6 @@ More Coming!
 1. [Asynchronous Advantage Actor Critic (A3C)](https://github.com/dykim1222/RL_Algorithms/tree/master/a3c)
 1. [Sample Efficient Actor-Critic with Experience Replay (ACER)](https://github.com/dykim1222/RL_Algorithms/tree/master/acer)
 1. [Proximal Policy Optimization (PPO)](https://github.com/dykim1222/RL_Algorithms/tree/master/ppo)
-1. Coming!
 
 ### Deep Q-Learning
 
