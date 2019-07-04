@@ -1,8 +1,11 @@
 # Deep Reinforcement Learning Algorithms
 ![dd](https://dv-website.s3.amazonaws.com/uploads/2018/06/pg_fundDRL_062718.png)
 
-Implementing RL algorithms in PyTorch. Everything is included in one file.
-Each algorithm is implemented to work fully in the mentioned environment. 
+* Implementing RL algorithms in PyTorch. 
+* Everything is included in one file.
+* Teseted on simple environments (e.g. `FrozenLake-v0`, `CartPole-v1`, `Pendulum-v1`, etc.)
+* Each algorithm is implemented to work fully in the mentioned environment. 
+* To test on other environments, a hyperparameter search might be necessary.
 
 ## Requirements
 ```
