@@ -333,8 +333,8 @@ def main():
                 score_lst.append(score)
                 break
             obs = obs_new
-        grad = update_params(pnet, vnet, memory)
-        writer.add_scalar('loss_grad_norm', grad.item(), epi)
+        grad_norm = update_params(pnet, vnet, memory)
+        writer.add_scalar('loss_grad_norm', grad_norm.item(), epi)
 
         if (epi+1)%print_freq==0:
             writer.add_scalar('Avg Return over last {} runs'.format(print_freq), avg_score, epi)
