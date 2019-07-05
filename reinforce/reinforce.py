@@ -50,6 +50,8 @@ def train():
                 avg_returns += np.sum(rewards)
                 for i in reversed(range(len(rewards))):
                     rewards[i] = rewards[i] + gamma*(rewards[i+1] if i<len(rewards)-1 else 0)
+                rewards = torch.Tensor(rewards)
+                rewards = (rewards - rewards.mean())/rewards.std()
                 loss = -torch.stack(log_probs).dot(torch.Tensor(rewards))
                 break
         if episode%print_freq==0 and episode>0:
