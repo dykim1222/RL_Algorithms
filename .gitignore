@@ -6,5 +6,6 @@ sac/
 
 # Packages
 .DS_Store
+*.ipynb
 *.pdf
 *.docx
