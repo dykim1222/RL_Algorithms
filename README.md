@@ -35,6 +35,8 @@ More Coming!
 ### Deep Q-Learning
 
 1. [Deep Q-Network (DQN)](https://github.com/dykim1222/RL_Algorithms/tree/master/dqn)
+1. [Double Deep Q-Network (DDQN)](https://github.com/dykim1222/RL_Algorithms/tree/master/ddqn)
+1. [Dueling Deep Q-Network (Dueling DQN)](https://github.com/dykim1222/RL_Algorithms/tree/master/duelingdqn)
 
 ## Resources
 * [David Silver's RL Course](http://www0.cs.ucl.ac.uk/staff/d.silver/web/Teaching.html)
