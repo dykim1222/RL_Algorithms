@@ -4,7 +4,6 @@ import random
 import numpy as np
 import numpy.random as npr
 from collections import deque, namedtuple
-# !pip install tensorboardX
 from tensorboardX import SummaryWriter
 import torch
 import torch.nn as nn
@@ -286,6 +285,7 @@ def update_params(pnet, vnet, memory):
                 param.grad.data.fill_(0)
         values_ = vnet(obss)
         value_loss = (values_ - rets).pow(2).mean()
+        
         # weight decay
         for param in vnet.parameters():
             value_loss += param.pow(2).sum() * l2_reg
