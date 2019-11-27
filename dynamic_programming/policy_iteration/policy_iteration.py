@@ -3,9 +3,7 @@ import numpy as np
 import numpy.random as npr
 import gym
 import matplotlib.pyplot as plt
-
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
-
 
 def policy_iteration():
     # input: S, A, P, R, gamma
