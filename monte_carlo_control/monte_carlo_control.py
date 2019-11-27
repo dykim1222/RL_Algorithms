@@ -3,7 +3,6 @@ import numpy as np
 import numpy.random as npr
 import gym
 import matplotlib.pyplot as plt
-# from collections import defaultdict
 
 eps = 0.1
 env = gym.make("FrozenLake-v0")
@@ -37,10 +36,6 @@ def monte_carlo_control():
             if done:
                 avg_return += r_lst[-1]
                 if epi%print_freq == 0:
-                    # print("Episode: {}    Return: {}".format(epi, avg_return/print_freq))
-                    # print(np.max(Q,1).reshape(4,4))
-                    # print(pi)
-                    # print('@'*60)
                     avg_return = 0.0
                 break
 
