@@ -8,7 +8,6 @@ import gym
 import matplotlib.pyplot as plt
 import pdb
 
-device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 num_hidden = 128
 render = False
 env_name = "CartPole-v1"
@@ -36,30 +35,38 @@ def train():
     policy = Policy(dim_state, dim_action).to(device)
     optimizer = torch.optim.Adam(policy.parameters(), lr=lr)
     avg_returns = 0.0
+    
     for episode in range(num_episodes):
+        
         log_probs, rewards = [], []
         obs = env.reset()
+        
         while True:
             if render: env.render()
             action = policy.get_action(obs)
             obs, rew, done, _ = env.step(action.item())
             log_probs.append(policy.m.log_prob(action))
             rewards.append(rew)
+            
             if done:
                 writer.add_scalar('Return', np.sum(rewards), episode)
                 avg_returns += np.sum(rewards)
+                
                 for i in reversed(range(len(rewards))):
                     rewards[i] = rewards[i] + gamma*(rewards[i+1] if i<len(rewards)-1 else 0)
                 rewards = torch.Tensor(rewards)
                 rewards = (rewards - rewards.mean())/rewards.std()
                 loss = -torch.stack(log_probs).dot(torch.Tensor(rewards))
                 break
+                
         if episode%print_freq==0 and episode>0:
             print('Episode: %3d \t Avg Return: %.3f'%(episode, avg_returns/print_freq))
             avg_returns = 0.0
+            
         optimizer.zero_grad()
         loss.backward()
         optimizer.step()
+        
     env.close()
     writer.close()
 
