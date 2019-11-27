@@ -7,9 +7,6 @@ import torch.nn as nn
 import torch.nn.functional as F
 from collections import deque
 
-!pip install tensorboardX
-from tensorboardX import SummaryWriter
-
 env_name = "Pendulum-v0"
 N = 100000
 num_episodes = 1000000
