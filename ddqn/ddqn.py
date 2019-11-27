@@ -6,7 +6,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from collections import deque
-from tensorboardX import SummaryWriter
 
 env_name = "CartPole-v1"
 rendering = False
