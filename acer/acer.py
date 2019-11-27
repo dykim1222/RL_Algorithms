@@ -256,15 +256,6 @@ def main():
         for proc in procs:
             proc.join()
 
-    #     plotting with tensorboardX
-    from tensorboardX import SummaryWriter
-    writer = SummaryWriter()
-    for i in range(len(logs)):
-        writer.add_scalar('Return', logs[i], i)
-    writer.close()
-    # import matplotlib.pyplot as plt
-    # plt.plot(logs[:2000])
-
 
 if __name__ == "__main__":
     main()
