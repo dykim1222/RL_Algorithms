@@ -2,7 +2,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import torch.multiprocessing as mp
-!pip install tensorboardX
 from tensorboardX import SummaryWriter
 import numpy as np
 import gym
@@ -136,13 +135,6 @@ def main():
         proc.join()
 
     env.close()
-
-    # plotting with tensorboardX
-    # from tensorboardX import SummaryWriter
-    # writer = SummaryWriter()
-    # for i in range(len(logs)):
-    #     writer.add_scalar('Return', logs[i], i)
-
 
 if __name__ == "__main__":
     main()
