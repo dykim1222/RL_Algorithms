@@ -3,7 +3,6 @@ import numpy as np
 import numpy.random as npr
 import gym
 import matplotlib.pyplot as plt
-
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
 
 eps = 0.1
@@ -36,7 +35,6 @@ def q_learning():
     Q = np.zeros((S,A))
     pi = npr.randint(A, size=S)
     policy_unstable = True
-
 
     avg_return = 0.0
     for epi in range(num_episode):
