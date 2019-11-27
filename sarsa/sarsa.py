@@ -3,7 +3,6 @@ import numpy as np
 import numpy.random as npr
 import gym
 import matplotlib.pyplot as plt
-
 np.set_printoptions(formatter={'float': lambda x: "{0:0.3f}".format(x)})
 
 eps = 0.1
@@ -41,18 +40,20 @@ def plot(Q, mode='forward'):
 def sarsa():
     Q = np.zeros((S,A))
     pi = npr.randint(A, size=S)
-
     avg_return = 0.0
+    
     for epi in range(num_episode):
         epi_return = 0.0
         s = env.reset()
         a = e_greedy(pi[s])
+        
         while True:
             s_prime, r, done, _ = env.step(a)
             epi_return += r
             a_prime = e_greedy(pi[s_prime])
             Q[s,a] = Q[s,a] + lr*(r + gamma*Q[s_prime,a_prime] - Q[s,a])
             pi[s] = Q[s].argmax()
+            
             if done:
                 avg_return += epi_return
                 if epi%print_freq == 0:
@@ -63,21 +64,25 @@ def sarsa():
                     print('@'*60)
                     avg_return = 0.0
                 break
+                
             s, a = s_prime, a_prime
+            
     plot(Q)
     return Q, pi
 
 def sarsa_eligibility_trace():
+    
     Q = np.zeros((S,A))
     E = np.zeros((S,A))
     pi = npr.randint(A, size=S)
     lamb = 0.5
-
     avg_return = 0.0
+    
     for epi in range(num_episode):
         epi_return = 0.0
         s = env.reset()
         a = e_greedy(pi[s])
+        
         while True:
             s_prime, r, done, _ = env.step(a)
             epi_return += r
@@ -86,8 +91,8 @@ def sarsa_eligibility_trace():
             E[s,a] += 1
             Q += lr*td_error*E
             E = gamma*lamb*E
-
             pi = Q.argmax(1)
+            
             if done:
                 avg_return += epi_return
                 if epi%print_freq == 0:
@@ -98,7 +103,9 @@ def sarsa_eligibility_trace():
                     print('@'*60)
                     avg_return = 0.0
                 break
+                
             s, a = s_prime, a_prime
+            
     plot(Q, 'backward')
     return Q, pi
 
