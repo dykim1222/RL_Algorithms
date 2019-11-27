@@ -6,10 +6,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from collections import deque
-
-# !pip install tensorboardcolab
-# from tensorboardcolab import TensorBoardColab
-!pip install tensorboardX
 from tensorboardX import SummaryWriter
 
 
@@ -58,10 +54,7 @@ class DQN(nn.Module):
         obs = F.relu(obs)
         obs = self.fc2(obs)
         return obs
-#         import pdb
-#         pdb.set_trace()
-#         return self.fc2(F.relu(self.bn1(self.fc1(obs).reshape(-1, 256))))
-
+    
     def get_action(self, phi):
         Q = self.forward(phi)
         eps = max(0.01, 0.08 - 0.01*(self.epi_num/200))
@@ -81,7 +74,6 @@ class DQN(nn.Module):
 
 
 def main():
-    # tb = TensorBoardColab()
     writer = SummaryWriter()
 
     env = gym.make(env_name)
@@ -92,19 +84,21 @@ def main():
     targetQ.eval()
     avg_total_reward = 0.0
     rendering = False
+    
     for epi in range(num_episodes):
         obs = env.reset()
         epi_total_reward = 0.0
         while True:
-#                 if rendering: env.render()
+            
+            if rendering: env.render()
+                
             action = model.get_action(obs)
             obs_new, rew, done, _ = env.step(action)
             epi_total_reward += rew
             buffer.add_memory(obs, action, rew/100.0, obs_new, float(done))
+            
             if done:
-                # tb.save_value('Return', 'return', epi, epi_total_reward)
                 writer.add_scalar('Return', epi_total_reward, epi)
-#                 writer.add_scalars('Return', {'run_{}'.format(z): epi_total_reward}, epi)
                 avg_total_reward += epi_total_reward
                 model.epi_num += 1
                 break
